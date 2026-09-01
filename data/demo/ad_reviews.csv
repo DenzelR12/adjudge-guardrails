@@ -1,0 +1,5 @@
+ad_id,customer_id,campaign_id,platform,creative_type,human_rating,llm_rating,llm_confidence,disagreement_risk,review_route,reviewer_override,source_updated_at
+ad_001,tenant_acme,camp_001,facebook,image,bad,good,0.91,0.88,human_review,true,2026-09-01T15:00:00Z
+ad_002,tenant_acme,camp_001,facebook,video,good,good,0.90,0.10,auto_approve,false,2026-09-01T15:05:00Z
+ad_003,tenant_northstar,camp_002,instagram,image,fair,good,0.73,0.67,human_review,true,2026-09-01T15:10:00Z
+ad_004,tenant_northstar,camp_002,instagram,video,bad,bad,0.95,0.08,auto_reject,false,2026-09-01T15:15:00Z

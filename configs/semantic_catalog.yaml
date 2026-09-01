@@ -1,0 +1,13 @@
+metrics:
+  reviewed_ads:
+    expression: "COUNT(*)"
+  exact_agreement:
+    expression: "AVG(CASE WHEN human_rating = llm_rating THEN 1.0 ELSE 0.0 END)"
+  false_approval_rate:
+    expression: "AVG(CASE WHEN human_rating = 'bad' AND llm_rating = 'good' THEN 1.0 ELSE 0.0 END)"
+dimensions: [campaign_id, platform, creative_type, review_route, source_updated_at]
+source: fact_ad_review
+policy:
+  read_only: true
+  max_days: 366
+  required_filter: customer_id
