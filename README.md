@@ -54,6 +54,32 @@ See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) and [Advertis
 
 See architecture, metric governance, [six-brain platform](docs/five-brain-platform.md), customer data governance, and operations runbook.
 
+## Try it locally
+
+A technical reviewer can run the local quality, freshness, and verification workflows from a clean environment:
+
+```bash
+git clone https://github.com/DenzelR12/adjudge-guardrails.git
+cd adjudge-guardrails
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev]"
+make test
+make freshness
+make verify
+```
+
+On Windows PowerShell, activate the virtual environment with `.venv\Scripts\Activate.ps1`.
+
+- See [Local Demo](docs/local-demo.md) for the guided walkthrough.
+- See [Runnable Demo](docs/runnable-demo.md) for the end-to-end example.
+
+### Reviewer checklist
+
+The existing test suite covers analytics behavior, deterministic control-plane controls, dashboard-service behavior, demo-data handling, core guardrails, and orchestration. The local workflows exercise the same core claim: a metric is publishable only when its source, definition, recomputation, and freshness checks are verified.
+
+The included sample registry is deliberately `unverifiable`. It is a demonstration of fail-closed behavior, not a measured result or a claim about current advertising performance.
+
 ## Quick start
 
 ```bash
@@ -62,8 +88,6 @@ make test
 make freshness
 make verify
 ```
-
-The sample registry is deliberately unverifiable. It is a template, not a measured result.
 
 ## License
 
