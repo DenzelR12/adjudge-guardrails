@@ -1,0 +1,12 @@
+[
+  {
+    "waiver_id": "waiver-0001",
+    "metric_id": "human_llm_exact_agreement",
+    "owner": "data-steward-demo",
+    "approver": "metric-owner-demo",
+    "reason": "Template waiver demonstrating attributed, expiring exceptions while real source provenance is pending.",
+    "created_at": "2026-09-01T00:00:00+00:00",
+    "expires_at": "2027-03-01T00:00:00+00:00",
+    "scope": "local-demo-reporting"
+  }
+]
