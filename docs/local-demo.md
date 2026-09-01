@@ -1,6 +1,6 @@
 # Local Demo
 
-The demo data is synthetic and is included only to exercise the architecture. It is not customer data and it does not represent measured Kaggle results.
+The demo data is synthetic and is included only to exercise the architecture. It is not customer data and it does not represent measured results from the public evaluation dataset.
 
 1. Start Postgres: `docker compose up -d`.
 2. Apply `sql/postgres_schema.sql` and load `data/demo/ad_reviews.csv` with your local Postgres client.
