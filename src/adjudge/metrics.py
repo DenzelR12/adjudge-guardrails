@@ -18,6 +18,7 @@ class MetricRecord(BaseModel):
     computed_at: datetime
     freshness_sla_hours: int = Field(gt=0)
     status: MetricStatus
+    owner: str | None = None
     code_version: str
     input_hash: str
 

@@ -69,4 +69,4 @@ The report computes four trend measures per domain:
 
 ## Rollout
 
-This specification lands as documentation first. Implementation follows the acceptance tests above and adds a `report` target to the Makefile once the waiver registry schema is validated against real domains.
+Implemented: `make report` composes the metric registry and waiver file into the digest above, and the acceptance tests run in the standard suite (`tests/test_report.py`). Verified-ownership coverage is computed today; the three history-dependent autonomy metrics report as not yet instrumented until decision-event history exists.

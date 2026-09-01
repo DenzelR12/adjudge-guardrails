@@ -77,6 +77,7 @@ python -m pip install -e ".[dev]"
 make test
 make freshness
 make verify
+make report
 ```
 
 On Windows PowerShell, activate the virtual environment with `.venv\Scripts\Activate.ps1`.

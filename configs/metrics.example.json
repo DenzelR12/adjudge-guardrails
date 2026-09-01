@@ -11,6 +11,7 @@
     "computed_at": "2026-09-01T00:00:00+00:00",
     "freshness_sla_hours": 168,
     "status": "unverifiable",
+    "owner": null,
     "code_version": "REPLACE_WITH_GIT_SHA",
     "input_hash": "REPLACE_WITH_SHA256"
   }
