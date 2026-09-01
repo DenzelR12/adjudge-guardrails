@@ -6,6 +6,16 @@ An enterprise reference implementation for auditing, governing, and operationali
 
 A fluent multimodal LLM rating or rationale is not evidence that its judgment matches expert creative review. AdJudge turns public human-versus-LLM evaluation data into a governed system: it independently computes metrics from versioned snapshots, blocks stale or unverifiable claims, and routes risky decisions to human reviewers.
 
+## Who this serves
+
+The guardrails answer an engineer's question — "may this ship?" — but the system is built for three audiences:
+
+- Business engineers: what must pass before this judgment ships. The verification contract answers this deterministically.
+- Engineering managers: who owns this outcome, and whether autonomy is being used or avoided. See [Ownership Signals](docs/ownership-signals.md).
+- Client partners and industry leads: whether what is live can be trusted, and whether the technical work is protecting the business metric. Every publishable claim carries provenance, freshness status, and a named owner; see the [Insight Layer](docs/insight-layer.md) specification.
+
+Guardrails decide what may ship; ownership signals show who is accountable for what shipped. Checks create the floor — visibility creates the consequence.
+
 ## Evaluation data and attribution
 
 The initial benchmark uses a public dataset released by AdControlCenter and distributed via Hugging Face.
@@ -52,7 +62,7 @@ See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) and [Advertis
 - Root-cause outputs are hypotheses with cited evidence, not unsupported causal conclusions.
 - Production changes, exports, policy changes, and customer-impacting actions require human approval.
 
-See architecture, metric governance, [six-brain platform](docs/five-brain-platform.md), customer data governance, and operations runbook.
+See [architecture](docs/architecture.md), [metric governance](docs/metric-governance.md), the [six-brain platform](docs/five-brain-platform.md), [customer data governance](docs/customer-data-governance.md), and the [operations runbook](docs/runbook.md).
 
 ## Try it locally
 
@@ -79,15 +89,6 @@ On Windows PowerShell, activate the virtual environment with `.venv\Scripts\Acti
 The existing test suite covers analytics behavior, deterministic control-plane controls, dashboard-service behavior, demo-data handling, core guardrails, and orchestration. The local workflows exercise the same core claim: a metric is publishable only when its source, definition, recomputation, and freshness checks are verified.
 
 The included sample registry is deliberately `unverifiable`. It is a demonstration of fail-closed behavior, not a measured result or a claim about current advertising performance.
-
-## Quick start
-
-```bash
-python -m pip install -e ".[dev]"
-make test
-make freshness
-make verify
-```
 
 ## License
 
