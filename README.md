@@ -1,6 +1,6 @@
 # AdJudge Guardrails
 
-An enterprise reference implementation for auditing, governing, and operationalizing AI-assisted creative-quality review. AdJudge measures human–LLM disagreement, detects systematic positivity bias, enforces evidence and freshness controls, routes high-risk judgments to humans, and supports tenant-safe analytics, incident forensics, and remediation planning.
+An enterprise reference implementation for auditing, governing, and operationalizing AI-assisted creative-quality review. AdJudge measures human–LLM disagreement, detects systematic positivity bias, enforces evidence and freshness controls, routes high-risk judgments to humans, and supports tenant-safe analytics, incident forensics, remediation planning, and advertiser- and campaign-grounded review context.
 
 ## Problem
 
@@ -22,9 +22,9 @@ AdControlCenter reports 26.8% human–LLM agreement on image-quality ratings; th
 
 AdJudge Guardrails currently focuses on auditing and operationalizing human-versus-LLM **creative-quality judgments**. It does not claim that a `good`, `fair`, or `bad` creative label predicts engagement, purchases, or other business outcomes.
 
-The roadmap supports configurable and vertical-specific creative rubrics, as well as separately validated performance-aware signals when legitimate outcome data and appropriate validation are available.
+The sixth brain adds advertiser- and campaign-level context so a reviewer can interpret a creative-quality judgment against a permitted account baseline, stated campaign objective, and category conventions. It does not make performance claims or override deterministic policy. The roadmap supports configurable and vertical-specific creative rubrics, plus separately validated performance-aware signals when legitimate outcome data and appropriate validation are available.
 
-See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) for the definitions, limitations, and claim-gating rules.
+See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) and [Advertiser and Campaign Intelligence Brain](docs/advertiser-campaign-intelligence-brain.md) for definitions, limitations, and claim-gating rules.
 
 ## System capabilities
 
@@ -33,6 +33,7 @@ See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) for the defin
 - Operations Forensics Brain: event timelines, lineage, blast radius, and evidence-ranked hypotheses.
 - Remediation Planner Brain: human-approved plans with risk, rollback, ownership, and measurable success criteria.
 - Customer Analytics Brain: tenant-scoped semantic analytics, dashboards, and reports.
+- Advertiser and Campaign Intelligence Brain: strictly tenant- and advertiser-scoped baselines, campaign objectives, category norms, and provenance-verified context for grounded review routing.
 
 ## Verification contract
 
@@ -46,12 +47,12 @@ See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) for the defin
 
 - Retrieval does not override deterministic policy or authorization.
 - Metrics are governed data products with versioned definitions, sources, inputs, code, freshness SLAs, and audit history.
+- Customer and advertiser context is security-trimmed at policy and database layers; cross-tenant or cross-advertiser retrieval fails closed.
 - Data-contract failures do not silently publish replacement results.
-- Customer analytics must enforce tenant scope at the policy and database layers.
 - Root-cause outputs are hypotheses with cited evidence, not unsupported causal conclusions.
 - Production changes, exports, policy changes, and customer-impacting actions require human approval.
 
-See architecture, metric governance, five-brain platform, customer data governance, and operations runbook.
+See architecture, metric governance, [six-brain platform](docs/five-brain-platform.md), customer data governance, and operations runbook.
 
 ## Quick start
 
