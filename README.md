@@ -1,30 +1,49 @@
 # AdJudge Guardrails
 
-> A human-calibrated evaluation and review-routing system for multimodal ad-quality scoring. It combines a provenance-aware RAG second brain with deterministic freshness, metric-verification, and audit controls.
+> An enterprise reference implementation for auditing, governing, and operationalizing AI-assisted creative-quality review. AdJudge measures human–LLM disagreement, detects systematic positivity bias, enforces evidence and freshness controls, routes high-risk judgments to humans, and supports tenant-safe analytics, incident forensics, and remediation planning.
 
 ## Problem
 
-Multimodal LLMs can accelerate creative review, but a fluent rating or rationale is not evidence that the judgment matches an expert reviewer. AdJudge measures human–LLM disagreement, detects high-risk false approvals, and routes uncertainty to humans instead of presenting unsupported results as current.
+A fluent multimodal LLM rating or rationale is not evidence that its judgment matches expert creative review. AdJudge turns public human-versus-LLM evaluation data into a governed system: it independently computes metrics from versioned snapshots, blocks stale or unverifiable claims, and routes risky decisions to human reviewers.
 
-## What this reference architecture demonstrates
+## Evaluation data and attribution
 
-- Evidence-first RAG: answers are grounded in retrieved documents and structured provenance.
-- Metric governance: every reported value has a definition, source/version, computation time, input hash, code version, freshness SLA, and status.
-- Fail-closed decisioning: stale or unverifiable measured claims cannot be stated as current.
-- Human-in-the-loop routing: policy sends risky or ambiguous judgments to expert review.
-- Audit-ready observability: each decision retains the evidence, policy, model, and data-version identifiers that produced it.
+The initial benchmark uses a public dataset released by [AdControlCenter](https://adcontrolcenter.com) and distributed via [Hugging Face](https://huggingface.co/datasets/AdControlCenter/ad-creative-quality-human-vs-llm).
 
-## Architecture
+The publisher describes 500 real Facebook ads from 253 advertisers, with human-expert and Claude Sonnet 4.6 creative-quality judgments and model rationales. The source provides derived features, labels, and public Meta Ad Library identifiers (`ad_archive_id`); this repository does not redistribute original creative assets.
 
-```text
-Sources -> contracts -> validation -> document index + metric registry
-                                           |                 |
-Question -> retrieval -> evidence assembly + verification -> policy gate -> cited answer / review queue
-```
+AdJudge does not claim ownership of the source ads or annotations. Its contribution is the independent evaluation, provenance, governance, review-routing, analytics, forensics, and remediation architecture around the public source.
 
-The RAG layer provides contextual retrieval. The verification layer independently decides whether a metric may be presented as current. Generation does not bypass that policy.
+### Source-reported finding
 
-Read the [architecture](docs/architecture.md), [metric governance standard](docs/metric-governance.md), [data contracts](docs/data-contracts.md), and [operating model](docs/operating-model.md).
+AdControlCenter reports 26.8% human–LLM agreement on image-quality ratings; the LLM rated 71.8% of ads good, while human experts rated 20.0% good. AdJudge treats those as source-reported benchmark statements, not live project metrics. Any AdJudge metric must be independently recomputed from a versioned snapshot and pass the verification policy before it may be stated as current.
+
+## System capabilities
+
+- **Knowledge Brain:** grounded policy and documentation retrieval.
+- **Metric Evidence Brain:** source-versioned, freshness-controlled measurements.
+- **Operations Forensics Brain:** event timelines, lineage, blast radius, and evidence-ranked hypotheses.
+- **Remediation Planner Brain:** human-approved plans with risk, rollback, ownership, and measurable success criteria.
+- **Customer Analytics Brain:** tenant-scoped semantic analytics, dashboards, and reports.
+
+## Verification contract
+
+| Status | Meaning | Answer policy |
+|---|---|---|
+| `verified` | Source, definition, and recomputation checks pass within SLA | May state the metric with provenance |
+| `stale` | Previous result exceeds its freshness SLA | Label it stale; do not imply currency |
+| `unverifiable` | Source, schema, definition, or recomputation cannot be validated | Block it from current factual claims |
+
+## Enterprise principles
+
+- Retrieval does not override deterministic policy or authorization.
+- Metrics are governed data products with versioned definitions, sources, inputs, code, freshness SLAs, and audit history.
+- Data-contract failures do not silently publish replacement results.
+- Customer analytics must enforce tenant scope at the policy and database layers.
+- Root-cause outputs are hypotheses with cited evidence, not unsupported causal conclusions.
+- Production changes, exports, policy changes, and customer-impacting actions require human approval.
+
+See [architecture](docs/architecture.md), [metric governance](docs/metric-governance.md), [five-brain platform](docs/five-brain-platform.md), [customer data governance](docs/customer-data-governance.md), and [operations runbook](docs/runbook.md).
 
 ## Quick start
 
@@ -35,37 +54,7 @@ make freshness
 make verify
 ```
 
-The included metric registry is intentionally marked `unverifiable`: it is a template, not a reported result. To publish a value as verified, supply the source snapshot/version, validate the schema, recompute using the documented definition, and record the input and code hashes.
-
-## Dataset example
-
-The initial adapter targets the Kaggle `adcontrolcenter/ad-creative-quality-human-vs-llm` dataset. Download it locally under the dataset terms; this repository does not redistribute source assets. The first benchmark evaluates agreement between human expert and LLM ratings. It does not claim to predict ROAS, conversions, or universal creative quality.
-
-## Status model
-
-| Status | Meaning | Answer policy |
-|---|---|---|
-| `verified` | Current source and deterministic checks pass | May state value with provenance |
-| `stale` | Existing value exceeds its freshness SLA | Must label it stale |
-| `unverifiable` | Missing/incompatible source or failed validation/recomputation | Must not state it as current |
-
-## Enterprise transferability
-
-The contracts and controls are domain-independent. Replace the ad-data adapter with product analytics, support cases, operational metrics, policy documents, or model-evaluation artifacts while preserving the same source contracts, verification release gates, access boundaries, and audit events.
-
-## Roadmap
-
-- [x] Typed metric provenance and freshness gate
-- [x] Fail-closed verification CLI and CI workflow
-- [ ] Kaggle ingestion adapter and schema contract
-- [ ] Human–LLM agreement and false-approval analysis
-- [ ] Agreement-risk model and review router
-- [ ] Citation-first RAG retrieval service and reviewer interface
-- [ ] Containerized deployment, RBAC, and telemetry adapter examples
-
-## Security note
-
-Never commit dataset assets, embeddings, access tokens, or production credentials. See the threat model before connecting enterprise sources.
+The sample registry is deliberately `unverifiable`. It is a template, not a measured result.
 
 ## License
 
