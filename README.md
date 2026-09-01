@@ -1,6 +1,6 @@
 # AdJudge Guardrails
 
-> An enterprise reference implementation for auditing, governing, and operationalizing AI-assisted creative-quality review. AdJudge measures human–LLM disagreement, detects systematic positivity bias, enforces evidence and freshness controls, routes high-risk judgments to humans, and supports tenant-safe analytics, incident forensics, and remediation planning.
+An enterprise reference implementation for auditing, governing, and operationalizing AI-assisted creative-quality review. AdJudge measures human–LLM disagreement, detects systematic positivity bias, enforces evidence and freshness controls, routes high-risk judgments to humans, and supports tenant-safe analytics, incident forensics, and remediation planning.
 
 ## Problem
 
@@ -8,23 +8,31 @@ A fluent multimodal LLM rating or rationale is not evidence that its judgment ma
 
 ## Evaluation data and attribution
 
-The initial benchmark uses a public dataset released by [AdControlCenter](https://adcontrolcenter.com) and distributed via [Hugging Face](https://huggingface.co/datasets/AdControlCenter/ad-creative-quality-human-vs-llm).
+The initial benchmark uses a public dataset released by AdControlCenter and distributed via Hugging Face.
 
 The publisher describes 500 real Facebook ads from 253 advertisers, with human-expert and Claude Sonnet 4.6 creative-quality judgments and model rationales. The source provides derived features, labels, and public Meta Ad Library identifiers (`ad_archive_id`); this repository does not redistribute original creative assets.
 
 AdJudge does not claim ownership of the source ads or annotations. Its contribution is the independent evaluation, provenance, governance, review-routing, analytics, forensics, and remediation architecture around the public source.
 
-### Source-reported finding
+## Source-reported finding
 
 AdControlCenter reports 26.8% human–LLM agreement on image-quality ratings; the LLM rated 71.8% of ads good, while human experts rated 20.0% good. AdJudge treats those as source-reported benchmark statements, not live project metrics. Any AdJudge metric must be independently recomputed from a versioned snapshot and pass the verification policy before it may be stated as current.
 
+## Scoring scope
+
+AdJudge Guardrails currently focuses on auditing and operationalizing human-versus-LLM **creative-quality judgments**. It does not claim that a `good`, `fair`, or `bad` creative label predicts engagement, purchases, or other business outcomes.
+
+The roadmap supports configurable and vertical-specific creative rubrics, as well as separately validated performance-aware signals when legitimate outcome data and appropriate validation are available.
+
+See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) for the definitions, limitations, and claim-gating rules.
+
 ## System capabilities
 
-- **Knowledge Brain:** grounded policy and documentation retrieval.
-- **Metric Evidence Brain:** source-versioned, freshness-controlled measurements.
-- **Operations Forensics Brain:** event timelines, lineage, blast radius, and evidence-ranked hypotheses.
-- **Remediation Planner Brain:** human-approved plans with risk, rollback, ownership, and measurable success criteria.
-- **Customer Analytics Brain:** tenant-scoped semantic analytics, dashboards, and reports.
+- Knowledge Brain: grounded policy and documentation retrieval.
+- Metric Evidence Brain: source-versioned, freshness-controlled measurements.
+- Operations Forensics Brain: event timelines, lineage, blast radius, and evidence-ranked hypotheses.
+- Remediation Planner Brain: human-approved plans with risk, rollback, ownership, and measurable success criteria.
+- Customer Analytics Brain: tenant-scoped semantic analytics, dashboards, and reports.
 
 ## Verification contract
 
@@ -43,7 +51,7 @@ AdControlCenter reports 26.8% human–LLM agreement on image-quality ratings; th
 - Root-cause outputs are hypotheses with cited evidence, not unsupported causal conclusions.
 - Production changes, exports, policy changes, and customer-impacting actions require human approval.
 
-See [architecture](docs/architecture.md), [metric governance](docs/metric-governance.md), [five-brain platform](docs/five-brain-platform.md), [customer data governance](docs/customer-data-governance.md), and [operations runbook](docs/runbook.md).
+See architecture, metric governance, five-brain platform, customer data governance, and operations runbook.
 
 ## Quick start
 
@@ -54,7 +62,7 @@ make freshness
 make verify
 ```
 
-The sample registry is deliberately `unverifiable`. It is a template, not a measured result.
+The sample registry is deliberately unverifiable. It is a template, not a measured result.
 
 ## License
 
