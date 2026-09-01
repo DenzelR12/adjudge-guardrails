@@ -1,0 +1,23 @@
+version: "1.0.0"
+thresholds:
+  disagreement_risk_human_review: 0.65
+  confidence_human_review: 0.70
+rules:
+  - when: "metric_status != verified"
+    route: "human_review"
+    reason: "Measured claim is stale or unverifiable"
+  - when: "disagreement_risk >= disagreement_risk_human_review"
+    route: "human_review"
+    reason: "Predicted expert/LLM disagreement risk is high"
+  - when: "confidence < confidence_human_review"
+    route: "human_review"
+    reason: "Model confidence is below policy threshold"
+  - when: "llm_rating == bad"
+    route: "auto_reject"
+    reason: "Low-risk negative assessment"
+  - when: "llm_rating == good"
+    route: "auto_approve"
+    reason: "Low-risk positive assessment"
+default:
+  route: "human_review"
+  reason: "Borderline or unspecified case"
