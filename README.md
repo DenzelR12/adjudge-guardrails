@@ -62,7 +62,7 @@ See [Scoring Scope and Roadmap](docs/scoring-scope-and-roadmap.md) and [Advertis
 - Root-cause outputs are hypotheses with cited evidence, not unsupported causal conclusions.
 - Production changes, exports, policy changes, and customer-impacting actions require human approval.
 
-See [architecture](docs/architecture.md), [metric governance](docs/metric-governance.md), the [six-brain platform](docs/five-brain-platform.md), [customer data governance](docs/customer-data-governance.md), and the [operations runbook](docs/runbook.md).
+See [architecture](docs/architecture.md), [metric governance](docs/metric-governance.md), the [six-brain platform](docs/six-brain-platform.md), [customer data governance](docs/customer-data-governance.md), and the [operations runbook](docs/runbook.md).
 
 ## Try it locally
 
